@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>矿权日报 Agent</title>
+    <meta name="description" content="通过三个 MCP Server 生成有来源约束的矿权日报">
+    <link rel="stylesheet" href="/assets/app.css">
+    <script src="/assets/app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="masthead">
+        <a class="brand" href="/" aria-label="矿权日报 Agent 首页">
+          <span class="brand-mark" aria-hidden="true">M</span>
+          <span>
+            <strong>矿权日报 Agent</strong>
+            <small>Mineral Intelligence Briefing</small>
+          </span>
+        </a>
+        <div class="system-state">
+          <span class="pulse" aria-hidden="true"></span>
+          3 个 MCP Server 已配置
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="page-title">
+          <p class="eyebrow">MCP · Plan / Act / Observe</p>
+          <h1 id="page-title">从一句需求到一份<br><span>可追溯的矿权日报</span></h1>
+          <p class="hero-copy">输入简报需求，Agent 将并行检索新闻、解析技术报告并获取价格代理数据。每项结论都保留来源与风险说明。</p>
+        </section>
+
+        <div class="workspace">
+          <section class="composer panel" aria-labelledby="composer-title">
+            <div class="panel-heading">
+              <div>
+                <p class="section-index">01</p>
+                <h2 id="composer-title">创建简报</h2>
+              </div>
+              <span class="required-note">本地运行 · 无需 API Key</span>
+            </div>
+
+            <form id="briefing-form">
+              <label for="prompt">简报需求</label>
+              <textarea id="prompt" name="prompt" rows="5" maxlength="500" required>给我生成一份关于 Pilbara 锂矿的今日简报</textarea>
+              <p class="field-help">只需输入矿山名称和矿种，例如“生成 Kambalda 镍矿的今日简报”。系统会自动检索新闻，并发现可验证的行情代理；没有可靠来源时会明确弃答。</p>
+
+              <div class="date-option">
+                <label for="as-of">数据截止日（可选）</label>
+                <input id="as-of" name="as_of" type="date">
+                <p class="field-help">默认为今天；可选择历史日期以复现当时可获得的数据。</p>
+              </div>
+
+              <button id="generate-button" class="primary-button" type="submit">
+                <span class="button-label">生成矿权日报</span>
+                <span class="button-arrow" aria-hidden="true">→</span>
+              </button>
+              <p id="form-error" class="error-message" role="alert" hidden></p>
+            </form>
+          </section>
+
+          <section class="execution panel" aria-labelledby="execution-title">
+            <div class="panel-heading compact">
+              <div>
+                <p class="section-index">02</p>
+                <h2 id="execution-title">Agent 执行状态</h2>
+              </div>
+              <span id="run-state" class="run-badge idle">等待输入</span>
+            </div>
+
+            <div id="server-grid" class="server-grid" aria-live="polite">
+              <article class="server-card" data-server="mining-news-mcp">
+                <div class="server-icon">N</div>
+                <div><strong>新闻聚合</strong><small>mining-news-mcp</small></div>
+                <span class="status-dot idle" title="等待调用"></span>
+                <p>等待调用</p>
+              </article>
+              <article class="server-card" data-server="mineral-pdf-mcp">
+                <div class="server-icon">R</div>
+                <div><strong>技术报告</strong><small>mineral-pdf-mcp</small></div>
+                <span class="status-dot idle" title="等待调用"></span>
+                <p>等待调用</p>
+              </article>
+              <article class="server-card" data-server="lme-price-mcp">
+                <div class="server-icon">P</div>
+                <div><strong>价格行情</strong><small>lme-price-mcp</small></div>
+                <span class="status-dot idle" title="等待调用"></span>
+                <p>等待调用</p>
+              </article>
+            </div>
+
+            <div class="trace-block">
+              <h3>Plan / Act / Observe</h3>
+              <ol id="trace-list" class="trace-list">
+                <li class="trace-empty">运行后将在这里展示 Agent 的真实编排轨迹。</li>
+              </ol>
+            </div>
+          </section>
+        </div>
+
+        <section id="result-section" class="result-section" aria-labelledby="result-title" hidden>
+          <div class="result-header">
+            <div>
+              <p class="section-index">03</p>
+              <h2 id="result-title">生成结果</h2>
+              <p id="result-meta"></p>
+            </div>
+            <div class="result-actions">
+              <button id="copy-button" class="secondary-button" type="button">复制 Markdown</button>
+              <button id="download-button" class="secondary-button" type="button">下载 .md</button>
+            </div>
+          </div>
+
+          <div id="chart-panel" class="chart-panel" hidden>
+            <div class="chart-title-row">
+              <h3>价格走势</h3>
+              <span>由 lme-price-mcp 返回的数据生成</span>
+            </div>
+            <div id="chart-frame" class="chart-frame"></div>
+          </div>
+
+          <article id="report-preview" class="report-preview"></article>
+          <details class="raw-markdown">
+            <summary>查看原始 Markdown</summary>
+            <pre id="markdown-source"></pre>
+          </details>
+        </section>
+      </main>
+
+      <footer>
+        <p>所有结果均保留数据来源、报告标准和降级风险；本系统不构成投资或矿业技术意见。</p>
+      </footer>
+    </div>
+  </body>
+</html>

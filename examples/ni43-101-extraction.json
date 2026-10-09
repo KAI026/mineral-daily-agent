@@ -1,0 +1,27 @@
+{
+  "source_url": "https://www.wallbridgemining.com/_resources/reports/43-101_chap-00_wmfen24m117_43-101_tech_report-final.pdf?v=100110",
+  "report_standard": "NI 43-101",
+  "physical_page": 229,
+  "verified_at": "2026-10-09",
+  "records": [
+    {
+      "category": "indicated",
+      "ore_quantity": 19.79,
+      "ore_unit": "Mt",
+      "grade": 3.3,
+      "grade_unit": "g/t Au",
+      "contained_metal": 2100,
+      "contained_unit": "koz Au"
+    },
+    {
+      "category": "inferred",
+      "ore_quantity": 18.899,
+      "ore_unit": "Mt",
+      "grade": 3.35,
+      "grade_unit": "g/t Au",
+      "contained_metal": 2037,
+      "contained_unit": "koz Au"
+    }
+  ],
+  "note": "Values are parsed from the paired Indicated/Inferred columns in Table 14.19."
+}

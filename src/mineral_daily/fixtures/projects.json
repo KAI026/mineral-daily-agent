@@ -1,0 +1,52 @@
+{
+  "pilbara": {
+    "aliases": ["pilbara", "pilgangoora", "皮尔巴拉", "pilbara minerals"],
+    "display_name": "Pilgangoora 锂矿",
+    "news_query": "Pilbara Minerals Pilgangoora lithium",
+    "commodity": "lithium",
+    "resource_pdf_url": "https://announcements.asx.com.au/asxpdf/20250611/pdf/06kmc3l7r1bjsm.pdf",
+    "resource_pages": [2],
+    "resource_standard": "JORC 2012"
+  },
+  "fenelon": {
+    "aliases": ["fenelon", "wallbridge", "芬尼隆"],
+    "display_name": "Fenelon 金矿",
+    "news_query": "Wallbridge Mining Fenelon gold",
+    "commodity": "gold",
+    "resource_pdf_url": "https://www.wallbridgemining.com/_resources/reports/43-101_chap-00_wmfen24m117_43-101_tech_report-final.pdf?v=100110",
+    "resource_pages": [229],
+    "resource_standard": "NI 43-101"
+  },
+  "oyu_tolgoi": {
+    "aliases": ["oyu tolgoi", "奥尤陶勒盖", "奥尤·陶勒盖"],
+    "display_name": "Oyu Tolgoi 铜金矿",
+    "news_query": "Oyu Tolgoi copper mine Rio Tinto",
+    "commodity": "copper",
+    "commodities": ["copper", "gold"],
+    "resource_pdf_url": "https://www.sec.gov/Archives/edgar/data/863064/000162828023004989/exhibits-963otsxk1300trs.htm",
+    "resource_pages": [17],
+    "resource_standard": "S-K 1300"
+  },
+  "sanshandao": {
+    "aliases": ["三山岛", "sanshandao"],
+    "display_name": "三山岛金矿",
+    "news_query": "Shandong Gold Sanshandao gold mine",
+    "commodity": "gold",
+    "resource_pdf_url": "https://static.sse.com.cn/disclosure/bond/announcement/company/c/new/2026-05-25/240785_20260525_ZIJ5.pdf",
+    "resource_pages": [7],
+    "resource_standard": "Chinese public disclosure"
+  },
+  "kainantu": {
+    "aliases": ["kainantu", "凯南图", "k92 mining"],
+    "display_name": "Kainantu 金铜矿",
+    "news_query": "K92 Mining Kainantu gold copper",
+    "commodity": "gold",
+    "commodities": ["gold", "copper", "silver"],
+    "location": "巴布亚新几内亚东高地省",
+    "operator": "K92 Mining Inc.",
+    "profile_url": "https://www.k92mining.com/kainantu-mine/",
+    "resource_pdf_url": "https://www.k92mining.com/site/assets/files/6377/k92_updated_2024_dfs_technical_report.pdf",
+    "resource_pages": [7],
+    "resource_standard": "NI 43-101"
+  }
+}

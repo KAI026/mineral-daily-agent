@@ -1,0 +1,78 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mineral-daily-agent"
+version = "0.1.0"
+description = "A production-oriented MCP mineral-rights daily briefing agent"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Interview submission" }]
+dependencies = [
+  "beautifulsoup4>=4.14,<5",
+  "dnspython>=2.8,<3",
+  "feedparser>=6.0.12,<7",
+  "httpx>=0.28.1,<1",
+  "markdown-it-py>=4,<5",
+  "mcp>=2.2,<2.3",
+  "pydantic>=2.12,<3",
+  "pypdf>=6.1,<7",
+  "starlette>=1,<2",
+  "tzdata>=2025.2,<2027",
+  "uvicorn>=0.41,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.18,<2",
+  "pytest>=8.4,<9",
+  "pytest-asyncio>=1.2,<2",
+  "pytest-cov>=7,<8",
+  "respx>=0.22,<1",
+  "ruff>=0.14,<1",
+]
+
+[project.scripts]
+mineral-daily-agent = "mineral_daily.agent.cli:main"
+mining-news-mcp = "mineral_daily.servers.news:main"
+mineral-pdf-mcp = "mineral_daily.servers.pdf:main"
+lme-price-mcp = "mineral_daily.servers.price:main"
+mineral-daily-web = "mineral_daily.web:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mineral_daily"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ASYNC", "RUF"]
+ignore = ["E501", "RUF001"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["mineral_daily"]
+
+[[tool.mypy.overrides]]
+module = ["feedparser"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-markers --disable-warnings"
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+  "live: requires public internet access and is excluded from the default suite",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["mineral_daily"]
+
+[tool.coverage.report]
+fail_under = 75
+show_missing = true

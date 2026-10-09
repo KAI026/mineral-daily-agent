@@ -1,0 +1,40 @@
+services:
+  agent:
+    build:
+      context: .
+    image: mineral-daily-agent:local
+    init: true
+    environment:
+      HTTP_TIMEOUT_SECONDS: "20"
+      MCP_TOOL_TIMEOUT_SECONDS: "60"
+      PDF_MAX_BYTES: "26214400"
+      MINERAL_AGENT_LOG_LEVEL: "INFO"
+      MINERAL_AGENT_PREFER_SNAPSHOTS: "1"
+    command:
+      - mineral-daily-agent
+      - --config
+      - /app/mcp-config.local.json
+      - --prompt
+      - 给我生成一份关于 Pilbara 锂矿的今日简报
+      - --output
+      - /output/pilbara-daily.md
+    volumes:
+      - ./output:/output
+  web:
+    build:
+      context: .
+    image: mineral-daily-agent:local
+    init: true
+    environment:
+      HTTP_TIMEOUT_SECONDS: "20"
+      MCP_TOOL_TIMEOUT_SECONDS: "60"
+      PDF_MAX_BYTES: "26214400"
+      MINERAL_AGENT_LOG_LEVEL: "INFO"
+      MINERAL_AGENT_PREFER_SNAPSHOTS: "1"
+      MINERAL_AGENT_MCP_CONFIG: "/app/mcp-config.local.json"
+    command:
+      - mineral-daily-web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./output:/output
